@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/app_background"
+    android:orientation="vertical" >
+
+    <android.support.v7.widget.Toolbar
+	    android:id="@+id/my_awesome_toolbar"
+	    android:layout_height="wrap_content"
+	    android:layout_width="match_parent"
+	    android:minHeight="?attr/actionBarSize"
+	    android:background="@color/light_green" />
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/mswiperefreshlayout"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent">
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/app_background"
+        android:fillViewport="true"
+        android:scrollbars="none" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:weightSum="8"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/question"
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:textColor="@color/white"
+                android:paddingTop="20dp"
+                android:paddingRight="@dimen/padding_10"
+                android:paddingLeft="@dimen/padding_10"
+                android:background="@color/light_green"
+                android:layout_weight="5"
+                android:textSize="@dimen/bigest" />
+
+            <FrameLayout
+                android:id="@+id/answer_cover"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="3"
+                android:foreground="@drawable/framelayout_selector"
+                >
+                <TextView
+                    android:id="@+id/answer"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="@dimen/padding_10"
+                    android:textColor="@color/text_grey"
+                    android:textSize="@dimen/bigger" />
+
+            </FrameLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
+    </android.support.v4.widget.SwipeRefreshLayout>
+</LinearLayout>

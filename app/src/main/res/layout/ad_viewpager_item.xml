@@ -7,7 +7,7 @@
     android:background="@color/none"
     android:foreground="@drawable/framelayout_selector"
     >
-    <com.messi.languagehelper.views.ProportionalImageView
+    <com.messi.cantonese.study.views.ProportionalImageView
         android:id="@+id/ad_img"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -6,7 +6,7 @@
         android:visibility="gone"
         >
 
-            <com.messi.languagehelper.views.WrapContentHeightViewPager
+            <com.messi.cantonese.study.views.WrapContentHeightViewPager
                 android:id="@+id/auto_view_pager"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

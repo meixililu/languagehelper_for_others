@@ -66,6 +66,77 @@
         <!-- 讯飞广告sdk -->
 
         <activity
+            android:name=".WordStudyCiYiXuanCiActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".WordStudyDanCiCeShiActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".WordStudyFourthActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".YiZhanDaoDiActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".BrainTwistsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ReadingAndNewsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ChDicBushouPinyinListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ChDicBushouPinyinActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".InvestListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ChineseDictionaryActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ExaminationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".WordStudyDuYinXuanCiActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ReadingJuheActivity"
+            android:exported="true"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".WordStudySecondActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".JichuxiulianAndKouyulianxiActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".WordStudyActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ReadingDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ReadingsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".CompositionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".JokeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".WordStudyDanCiRenZhiActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".WordStudyThirdActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".PhotosTranslateActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".MoreActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -75,22 +146,16 @@
             android:name=".SymbolDetailActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".EvaluationTypeActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".AppRecommendListActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".InvestmentActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".EvaluationDetailActivity"
+            android:name=".SpokenEnglishDetailActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".EvaluationCategoryListActivity"
+            android:name=".SpokenEnglishCategorySecondaryActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".EvaluationCategoryActivity"
+            android:name=".SpokenEndlishCategoryActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".DialogPracticeActivity"
@@ -105,7 +170,7 @@
             android:name=".StudyDialogListActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".PracticeCategoryActivity"
+            android:name=".JichuxiulianFragment"
             android:screenOrientation="portrait" />
         <activity
             android:name=".QRCodeShareActivity"
@@ -114,12 +179,6 @@
             android:name=".PracticeDetailActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
-        <activity
-            android:name=".GetContentActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".RecommendActivity"
-            android:screenOrientation="portrait" />
         <activity
             android:name=".ViewImageActivity"
             android:screenOrientation="portrait" />
@@ -135,22 +194,13 @@
                 android:value="splitActionBarWhenNarrow" />
         </activity>
         <activity
-            android:name=".GetFansActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".EnglishWebsiteRecommendActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".DailySentenceActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".CollectedActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".AboutActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".SettingActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".HelpActivity"
@@ -160,11 +210,13 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ImgShareActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <activity
             android:name=".wxapi.WXEntryActivity"
             android:exported="true"
             android:launchMode="singleTask"
+            android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait" />
     </application>
 

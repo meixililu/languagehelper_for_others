@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.messi.cantonese.study.LeisureFragment;
 import com.messi.cantonese.study.MainFragment;
 import com.messi.cantonese.study.MainFragmentOld;
 import com.messi.cantonese.study.R;
@@ -26,7 +27,7 @@ public class MainPageAdapter extends FragmentPagerAdapter {
         this.mSharedPreferences = mSharedPreferences;
         CONTENT = new String[] {
         		mContext.getResources().getString(R.string.title_translate),
-        		mContext.getResources().getString(R.string.title_study),
+//        		mContext.getResources().getString(R.string.title_study),
         		mContext.getResources().getString(R.string.title_leisure)
         };
     }
@@ -36,7 +37,7 @@ public class MainPageAdapter extends FragmentPagerAdapter {
         if( position == 0 ){
             return MainFragmentOld.getInstance(bundle,mContext);
         }else if( position == 1 ){
-            return new Fragment();
+            return LeisureFragment.getInstance();
 //        	return StudyFragment.getInstance();
         }else if( position == 2 ){
             return new Fragment();

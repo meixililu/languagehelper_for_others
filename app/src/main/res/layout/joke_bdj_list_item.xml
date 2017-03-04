@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layout_cover"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/padding_7"
+    android:paddingRight="@dimen/padding_7"
+    android:paddingTop="@dimen/padding_10"
+    android:paddingBottom="@dimen/padding_10"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/profile_image"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:adjustViewBounds="true"
+            fresco:placeholderImageScaleType="fitCenter"
+            fresco:actualImageScaleType="fitCenter"
+            fresco:placeholderImage="@color/text_tint"
+            fresco:roundedCornerRadius="7dp"
+            fresco:roundTopLeft="true"
+            fresco:roundTopRight="true"
+            fresco:roundBottomLeft="true"
+            fresco:roundBottomRight="true"
+            />
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/padding_10"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            >
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textIsSelectable="true"
+                android:layout_alignParentTop="true"
+                android:gravity="left"
+                android:textColor="@color/text_grey"
+                android:textSize="@dimen/small" />
+            <TextView
+                android:id="@+id/time"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_5"
+                android:layout_alignParentBottom="true"
+                android:gravity="left"
+                android:textColor="@color/text_grey1"
+                android:textSize="@dimen/smaller_l" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/des"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textIsSelectable="true"
+        android:layout_marginTop="@dimen/padding_5"
+        android:gravity="left"
+        android:textColor="@color/text_black"
+        android:textSize="@dimen/bigger" />
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/list_item_img"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        fresco:viewAspectRatio="1.1"
+        android:layout_marginTop="@dimen/padding_7"
+        fresco:placeholderImageScaleType="fitCenter"
+        fresco:actualImageScaleType="fitCenter"
+        fresco:placeholderImage="@color/text_tint"
+        />
+    <fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard
+        android:id="@+id/videoplayer"
+        android:layout_marginTop="@dimen/padding_7"
+        android:layout_width="match_parent"
+        android:layout_height="230dp"/>
+</LinearLayout>

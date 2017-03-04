@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/black"
+    android:orientation="vertical" >
+
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/my_awesome_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize" >
+
+        <ProgressBar style="@style/CircularProgressWhite"
+            android:id="@+id/progressBarCircularIndetermininate"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="right"
+            android:visibility="gone" />
+    </android.support.v7.widget.Toolbar>
+
+
+    <ImageView
+        android:id="@+id/imageview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/my_awesome_toolbar"
+        android:layout_marginTop="@dimen/padding_7"
+        android:scaleType="fitCenter"
+        />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/buttonfloat"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="@dimen/padding_10"
+        android:layout_marginBottom="@dimen/padding_margin"
+        android:src="@drawable/ic_share_white_24dp"
+        android:clickable="true"
+        android:layout_margin="16dp"
+        app:backgroundTint="@color/load_blue"
+        app:borderWidth="0dp"
+        app:elevation="4dp"
+        app:pressedTranslationZ="4dp"
+        app:rippleColor="#33728dff"
+        />
+</RelativeLayout>
