@@ -1,0 +1,242 @@
+<resources>
+
+    <string name="app_name">Translator</string>
+    <string name="app_des">You are worth it</string>
+    <string name="app_ad">Learn Chinese,You are worth it.</string>
+    <string name="author">Author：Lilu</string>
+    <string name="designer">Designer：Liqianxia</string>
+    <string name="title_about">About</string>
+    <string name="title_share_preview">Preview</string>
+    <string name="title_TranslatePractice">Practice</string>
+    <string name="title_Practice">Practice</string>
+    <string name="title_practice_word">Word Practice</string>
+    <string name="title_listening">Listening</string>
+    <string name="title_symbol">Symbol Study</string>
+    <string name="title_word_study">Word Study</string>
+    <string name="title_word_vocabulary">Vocabulary</string>
+    <string name="title_spoken_english_study">Study</string>
+    <string name="title_english_jokes">Jokes</string>
+    <string name="title_english_video">Videos</string>
+    <string name="title_english_story">Story</string>
+    <string name="title_sougo_wechat">Wechat English</string>
+    <string name="title_juhe">Synthesize</string>
+    <string name="title_help">Help</string>
+    <string name="title_more">More</string>
+    <string name="title_translate">Translate</string>
+    <string name="title_dictionary">Dictionary</string>
+    <string name="title_instagram">Instagram</string>
+    <string name="title_study">Study</string>
+    <string name="title_leisure">Recreation</string>
+    <string name="title_cailing">Ring</string>
+    <string name="title_reading">Reading</string>
+    <string name="title_hotel">Hotel</string>
+    <string name="title_favorite">Favorite</string>
+    <string name="title_settings">Settings</string>
+    <string name="title_comments">Comments</string>
+    <string name="title_apps">Find Apps</string>
+    <string name="title_ch_dictionary">Chinese Dictionary</string>
+    <string name="title_dictionary_idiom">Dictionary of Idiom</string>
+    <string name="evaluation_prompt">About Evaluation</string>
+    <string name="word_study_detail_menu">Listen</string>
+    <string name="offline_download">Download Mp3</string>
+    <string name="title_duanzi">Joke</string>
+    <string name="title_duanzi_word">Text</string>
+    <string name="title_duanzi_img">Picture</string>
+    <string name="title_duanzi_gif">Gif</string>
+    <string name="title_composition">Composition</string>
+    <string name="copy">Copy</string>
+    <string name="background_color">Background Color</string>
+    <string name="font_color">Font Color</string>
+    <string name="font_size">Font Size</string>
+    <string name="font_style">Font Style</string>
+    <string name="font_style_left">Left</string>
+    <string name="font_style_right">Right</string>
+    <string name="font_style_center">Center</string>
+    <string name="font_style_bold">Bold</string>
+    <string name="font_style_italic">Italic</string>
+    <string name="examination">Examination</string>
+    <string name="reading">Reading</string>
+    <string name="foreign_website">Learning Website</string>
+    <string name="menu_share">DIY Share</string>
+    <string name="menu_settings">Play Speed</string>
+    <string name="app_name_share">App:Translator</string>
+    <string name="share_text_hint">please input something</string>
+    <string name="input_et_hint">please input chinese or english</string>
+    <string name="ch_dic_input_hint">please input chinese</string>
+    <string name="input_translate_hint">please translate</string>
+    <string name="search">Search</string>
+    <string name="translate">Translate</string>
+    <string name="start">Start</string>
+    <string name="listen">Listen</string>
+    <string name="finish">Finish</string>
+    <string name="exit_program">Press again to exit the program</string>
+    <string name="loadmore">loading...</string>
+    
+    <string name="share_dialog_text_1">Text</string>
+    <string name="share_dialog_text_2">Image(recommend)</string>
+    <string name="take_photo">TakePhoto</string>
+    <string name="photo_album">PhotoAlbum</string>
+
+    <string name="next_unit">Next Unit</string>
+    <string name="dancirenzhi">Word Study</string>
+    <string name="dancirenzhi_des">Learn all the word of this unit</string>
+    <string name="dancitingxuan">读音选词</string>
+    <string name="dancitingxuan_des">根据单词读音选择正确的单词</string>
+    <string name="danciceshi">单词选义</string>
+    <string name="danciceshi_des">根据单词选中文意思</string>
+    <string name="ciyixuanci">词义选词</string>
+    <string name="ciyixuanci_des">根据中文意思选单词</string>
+    <string name="try_again">Try again</string>
+    <string name="finish_test">Finish</string>
+
+    <string name="dic_tab_juhai">Sentences</string>
+    <string name="dic_tab_cidian">Dictionary</string>
+    <string name="dic_tab_shoucang">Collected</string>
+    
+    <string name="speak_english">please tap mic to speak english</string>
+    <string name="speak_chinese">please tap mic to speak chinese</string>
+    <string name="your_turn">Your Turn</string>
+    
+    <string name="app_id">50aa1213</string>
+    <string name="preference_default_iat_engine_en">sms-en</string>
+    <string name="preference_key_iat_rate">iat_rate</string>
+    <string name="preference_title_iat_rate">录音采样率</string>
+    <string name="preference_default_iat_rate">rate16k</string>
+    
+    <string name="preference_key_iat_engine">iat_engine</string>
+    <string name="preference_default_iat_engine">iat</string>
+    
+    <string name="preference_key_recognizer">recognizer</string>
+    <string name="preference_default_recognizer">zh_cn</string>
+    
+    <string name="preference_key_accent">accent</string>
+    <string name="preference_default_accent">mandarin</string>
+    
+    <string name="preference_key_tts_speed">tts_speed</string>
+    
+    <string name="play_speed_text">play speed：</string>
+    <string name="fifth_normal">normal:50</string>
+    <string name="i_speak_cantonese">Speak Cantonese</string>
+    <string name="auto_play_after_translate">Auto Play After Translate</string>
+    <string name="clear_all_except_favorite">Clear Records Except Favorites</string>
+    <string name="clear_all_record">Clear All Records</string>
+    <string name="auto_clear">Clear Records Except Favorites When Exit</string>
+    <string name="invite_friends">Very good,invite some friends</string>
+    <string name="auto_clear_after_translate">Auto Clear After Translate</string>
+    <string name="clear_success">Clear Success</string>
+    <string name="sentence">Sentence</string>
+    <string name="continuity">Continuity</string>
+    <string name="conversation">Conversation</string>
+
+    <string name="feedback">Feedback</string>
+    <string name="preference_key_tts_music">tts_music</string>
+    <string name="preference_title_tts_music">background music</string>
+    <string name="preference_default_tts_music">0</string>
+    <string name="preference_dialog_title_tts_music">select background music</string>
+    <string name="tts_toast_format" formatted="false">当前合成进度为%d%%，播放进度为%d%%</string>
+    <string name="click_and_speak">Tap to speak</string>
+    <string name="click_and_finish">Tap to finish</string>
+    <string name="dele_success">delete success</string>
+    <string name="copy_success">copy success</string>
+    <string name="share">Share</string>
+    <string name="share_buddy">Share to buddy</string>
+    <string name="favorite_success">collect success</string>
+    <string name="favorite_cancle">collect cancle</string>
+    
+    <string name="click_where_unknow">click where unknow:</string>
+    <string name="close">Close</string>
+    <string name="errcode_success">success</string>
+	<string name="errcode_cancel">cancel</string>
+	<string name="errcode_deny">deny</string>
+	<string name="errcode_unknown">unknown</string>
+	<string name="chinese">Zh</string>
+	<string name="english">En</string>
+	<string name="collect">favorite</string>
+	<string name="wechat">wechat</string>
+	<string name="speak_prompt">请根据您说的语言点击中文或者英文！</string>
+	<string name="webview_reload">Tap To Reload</string>
+	
+	
+	<string name="recent_use_footer_prompt">Prompt</string>
+	<string name="recent_use_footer_prompt_content">\tHere only save 100 record，you also can collect which you like.
+	    And we are trying to improve the translate result and the software,thank you.</string>
+	    
+	<string name="textclickguidedialog_title">I only show once</string>
+	<string name="textclickguidedialog_content">Click the content and result also will play the speech,You can change the speech speed in Settings.</string>
+	
+	<string name="about_play_title">About Voice Broadcast</string>
+	<string name="about_play_content">Click the content and result will play the speech.</string>
+	
+	<string name="about_speed_title">About Speech Speed</string>
+	<string name="about_speed_content">You can change the speech speed in Settings.</string>
+	
+	<string name="about_volume_title">About Volume</string>
+	<string name="about_volume_content">Click the volume keys to adjust.</string>
+	
+	<string name="practice_prompt_english">Click Start to speak english</string>
+	<string name="practice_prompt_chinese">Click Start to speak chinese</string>
+	<string name="cailing_ad_prompt">三块钱你买不了吃亏，买不了上当，只需三块钱，就能让电话另一头的TA拥有一次美好而有爱的等待，而不是平凡并且枯燥的嘟。。。嘟。。。嘟。。。还等什么呢，赶紧操作起来，为TA设置一段好玩又有新意的铃声吧! http://api.openspeech.cn/kyls/NTBhYTEyMTM=</string>
+	<string name="yuedu_ad_prompt">专注随身阅读30年! http://api.openspeech.cn/cmread/NTBhYTEyMTM=</string>
+	<string name="hotel_ad_prompt">专注开房30年! http://api.openspeech.cn/trip/NTBhYTEyMTM=</string>
+	<string name="invite_friends_prompt">so cool！ http://a.app.qq.com/o/simple.jsp?pkgname=com.messi.languagehelper</string>
+
+    <string name="input_et_hint_dictionary">Please input Chinese or English word</string>
+	<string name="dailysentence">Daily Sentence</string>
+	<string name="spoken_english_practice">Practice</string>
+	<string name="spoken_english_reading">Learn</string>
+	<string name="symbolStudy">Symbol Study</string>
+    <string name="ChDicBushouList">Chinese Radicals</string>
+    <string name="ChDicPinyinList">Chinese Phonetic</string>
+	<string name="simulation_dialogue">Dialogue</string>
+	<string name="introduction">Part One</string>
+	<string name="primary_lever">Part Two</string>
+	<string name="intermediate_lever">Part Three</string>
+	<string name="fighting">To All User</string>
+	<string name="sorry">We Are Sorry</string>
+	
+	<string name="leisuer_one">Ringback Music</string>
+	<string name="leisuer_one_subtitle">Listen to the music</string>
+    <string name="leisuer_sougou_wechat">Wechat English</string>
+    <string name="leisuer_sougou_wechat_subtitle">All the Wechat English</string>
+	<string name="leisuer_reading">Readings</string>
+	<string name="leisuer_reading_subtitle">Do some Reading</string>
+	<string name="leisuer_twists">Brain twists</string>
+	<string name="leisuer_yizhandaodi">Q-A</string>
+    <string name="leisuer_yizhandaodi_des">Question and Answer</string>
+	<string name="leisuer_twists_subtitle">Chinese brain twists</string>
+    <string name="leisuer_duanzi">Joke</string>
+    <string name="leisuer_duanzi_subtitle">Make a funny</string>
+    <string name="leisuer_gyt">Relax</string>
+    <string name="leisuer_gyt_subtitle">Have fun</string>
+    <string name="leisuer_invest">Investor</string>
+    <string name="leisuer_invest_subtitle">Invest your idea</string>
+
+	<string name="leisuer_two">Dictionarys</string>
+	<string name="leisuer_two_subtitle">Xinhua Dictionary and Dictionary of Idioms</string>
+	<string name="download">Try it</string>
+	
+	<string name="invest_activity_title">Investors</string>
+	
+	<string name="practice_check">Check</string>
+	<string name="practice_next">Next</string>
+	<string name="practice_next_level">Next Level</string>
+	<string name="practice_finish">Finish</string>
+	<string name="practice_start">Start</string>
+	<string name="practice_spoken_englist_style_studyevery">Study</string>
+	<string name="practice_spoken_englist_style_fourinone">Choose one</string>
+	<string name="practice_spoken_englist_style_readafterme">Read After Me</string>
+	<string name="practice_spoken_englist_style_write">Write</string>
+	<string name="practice_spoken_englist_style_speakafterme">Speak After Me</string>
+	<string name="practice_spoken_englist_finish">Congratulation</string>
+	<string name="translate_content">Translate This Sentence</string>
+	<string name="practice_dialog_listen">Listen</string>
+	<string name="practice_dialog_readafterme">Read</string>
+	<string name="getcontent_1">Please Look Forward To!</string>
+	<string name="getcontent_2">To Help Developer,Check Here!</string>
+	
+	<string name="learn_english">Learn Chinese\nPerseverance\nAccumulation </string>
+	
+	<string name="follow_teacher">Follow Teacher</string>
+	<string name="server_error">Server Error,Retry Later Please!</string>
+	<string name="network_error">Network Error,Retry Later Please!</string>
+</resources>
