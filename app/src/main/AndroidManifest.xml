@@ -197,7 +197,7 @@
             android:name=".EnglishWebsiteRecommendActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".DailySentenceActivity"
+            android:name=".CollectedActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".AboutActivity"

@@ -2,6 +2,7 @@ package com.messi.cantonese.study.wxapi;
 
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -13,9 +14,11 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Toast;
 
+import com.avos.avoscloud.AVAnalytics;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechUtility;
 import com.messi.cantonese.study.BaseActivity;
+import com.messi.cantonese.study.MoreActivity;
 import com.messi.cantonese.study.R;
 import com.messi.cantonese.study.adapter.MainPageAdapter;
 import com.messi.cantonese.study.db.DataBaseUtil;
@@ -98,9 +101,9 @@ public class WXEntryActivity extends BaseActivity implements OnClickListener,Fra
 	}
 	
 	private void toMoreActivity(){
-//		Intent intent = new Intent(this, MoreActivity.class);
-//		startActivity(intent);
-//		AVAnalytics.onEvent(this, "index_pg_to_morepg");
+		Intent intent = new Intent(this, MoreActivity.class);
+		startActivity(intent);
+		AVAnalytics.onEvent(this, "index_pg_to_morepg");
 	}
 	
 	@Override

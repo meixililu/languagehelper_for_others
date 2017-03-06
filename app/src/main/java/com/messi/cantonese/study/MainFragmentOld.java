@@ -52,8 +52,6 @@ import java.util.regex.Pattern;
 
 public class MainFragmentOld extends Fragment implements OnClickListener {
 
-    public static int speed;
-    public static boolean isRefresh;
     public static MainFragmentOld mMainFragment;
     private EditText input_et;
     private FrameLayout submit_btn_cover;
@@ -80,7 +78,6 @@ public class MainFragmentOld extends Fragment implements OnClickListener {
     private SharedPreferences mSharedPreferences;
     //合成对象.
     private SpeechSynthesizer mSpeechSynthesizer;
-    private Bundle bundle;
     private View view;
     private FragmentProgressbarListener mProgressbarListener;
 
@@ -219,7 +216,6 @@ public class MainFragmentOld extends Fragment implements OnClickListener {
         cb_speak_language_en.setOnClickListener(this);
         speak_round_layout.setOnClickListener(this);
         clear_btn_layout.setOnClickListener(this);
-        speed = mSharedPreferences.getInt(getString(R.string.preference_key_tts_speed), 50);
     }
 
     private void initSample() {
@@ -270,10 +266,20 @@ public class MainFragmentOld extends Fragment implements OnClickListener {
         super.setUserVisibleHint(isVisibleToUser);
         LogUtil.DefalutLog("MainFragment-setUserVisibleHint");
         if (isVisibleToUser) {
-            if (isRefresh) {
-                isRefresh = false;
+            if (Settings.isMainFragmentNeedRefresh) {
+                Settings.isMainFragmentNeedRefresh = false;
                 new WaitTask().execute();
             }
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        LogUtil.DefalutLog("MainFragment-onResume");
+        if (Settings.isMainFragmentNeedRefresh) {
+            Settings.isMainFragmentNeedRefresh = false;
+            new WaitTask().execute();
         }
     }
 

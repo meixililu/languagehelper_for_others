@@ -42,9 +42,8 @@ import java.util.List;
  * Created by luli on 10/23/16.
  */
 
-public class RcTranslateLiatItemViewHolder extends RecyclerView.ViewHolder {
+public class RcCollectTranslateLiatItemViewHolder extends RecyclerView.ViewHolder {
 
-    private Context context;
     public TextView record_question;
     public TextView record_answer;
     public FrameLayout record_answer_cover;
@@ -60,7 +59,7 @@ public class RcTranslateLiatItemViewHolder extends RecyclerView.ViewHolder {
     public CheckBox collected_cb;
     public FrameLayout voice_play_layout;
     public ProgressBar play_content_btn_progressbar;
-
+    private Context context;
     private AnimationDrawable currentAnimationDrawable;
     private Thread mThread;
     private MyThread mMyThread;
@@ -69,13 +68,13 @@ public class RcTranslateLiatItemViewHolder extends RecyclerView.ViewHolder {
     private List<record> beans;
     private SpeechSynthesizer mSpeechSynthesizer;
     private SharedPreferences mSharedPreferences;
-    private RcTranslateListAdapter mAdapter;
+    private RcCollectTranslateListAdapter mAdapter;
 
-    public RcTranslateLiatItemViewHolder(View convertView,
-                                         List<record> mBeans,
-                                         SpeechSynthesizer mSpeechSynthesizer,
-                                         SharedPreferences mSharedPreferences,
-                                         RcTranslateListAdapter mAdapter) {
+    public RcCollectTranslateLiatItemViewHolder(View convertView,
+                                                List<record> mBeans,
+                                                SpeechSynthesizer mSpeechSynthesizer,
+                                                SharedPreferences mSharedPreferences,
+                                                RcCollectTranslateListAdapter mAdapter) {
         super(convertView);
         this.context = convertView.getContext();
         this.beans = mBeans;
@@ -115,11 +114,11 @@ public class RcTranslateLiatItemViewHolder extends RecyclerView.ViewHolder {
 
     public void render(final record mBean) {
         AnimationDrawable animationDrawable = (AnimationDrawable) voice_play.getBackground();
-        MyOnClickListener mMyOnClickListener = new MyOnClickListener(mBean,animationDrawable,voice_play,play_content_btn_progressbar,true);
-        MyOnClickListener mQuestionOnClickListener = new MyOnClickListener(mBean,animationDrawable,voice_play,play_content_btn_progressbar,false);
-        if(mBean.getIscollected().equals("0")){
+        MyOnClickListener mMyOnClickListener = new MyOnClickListener(mBean, animationDrawable, voice_play, play_content_btn_progressbar, true);
+        MyOnClickListener mQuestionOnClickListener = new MyOnClickListener(mBean, animationDrawable, voice_play, play_content_btn_progressbar, false);
+        if (mBean.getIscollected().equals("0")) {
             collected_cb.setChecked(false);
-        }else{
+        } else {
             collected_cb.setChecked(true);
         }
         if (getLayoutPosition() == 0) {
@@ -147,14 +146,14 @@ public class RcTranslateLiatItemViewHolder extends RecyclerView.ViewHolder {
         record_answer_cover.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                Settings.copy(context,mBean.getEnglish());
+                Settings.copy(context, mBean.getEnglish());
                 return true;
             }
         });
         record_question_cover.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                Settings.copy(context,mBean.getChinese());
+                Settings.copy(context, mBean.getChinese());
                 return true;
             }
         });
@@ -168,10 +167,10 @@ public class RcTranslateLiatItemViewHolder extends RecyclerView.ViewHolder {
         copy_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mBean.getEnglish().contains("英[") || mBean.getEnglish().contains("美[")){
-                    Settings.copy(context,mBean.getChinese()+"\n"+mBean.getEnglish());
-                }else {
-                    Settings.copy(context,mBean.getEnglish());
+                if (mBean.getEnglish().contains("英[") || mBean.getEnglish().contains("美[")) {
+                    Settings.copy(context, mBean.getChinese() + "\n" + mBean.getEnglish());
+                } else {
+                    Settings.copy(context, mBean.getEnglish());
                 }
                 AVAnalytics.onEvent(context, "tab1_tran_copy");
             }
@@ -180,26 +179,26 @@ public class RcTranslateLiatItemViewHolder extends RecyclerView.ViewHolder {
             @Override
             public void onClick(View v) {
                 String text = "";
-                if(mBean.getEnglish().contains("英[") || mBean.getEnglish().contains("美[")){
-                    text = mBean.getChinese()+"\n"+mBean.getEnglish();
-                }else{
+                if (mBean.getEnglish().contains("英[") || mBean.getEnglish().contains("美[")) {
+                    text = mBean.getChinese() + "\n" + mBean.getEnglish();
+                } else {
                     text = mBean.getEnglish();
                 }
-                Settings.share(context,text);
+                Settings.share(context, text);
                 AVAnalytics.onEvent(context, "tab1_share_btn");
             }
         });
         collected_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateCollectedStatus(mBean);
+                updateCollectedStatus(getLayoutPosition());
                 AVAnalytics.onEvent(context, "tab1_tran_collected");
             }
         });
         record_to_practice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context,PracticeActivity.class);
+                Intent intent = new Intent(context, PracticeActivity.class);
                 WXEntryActivity.dataMap.put(KeyUtil.DialogBeanKey, mBean);
                 context.startActivity(intent);
                 AVAnalytics.onEvent(context, "tab1_tran_to_practicepg");
@@ -208,46 +207,56 @@ public class RcTranslateLiatItemViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void deleteEntity(int position) {
-        try{
+        try {
             record mBean = beans.remove(position);
             mAdapter.notifyItemRemoved(position);
             DataBaseUtil.getInstance().dele(mBean);
-            ToastUtil.diaplayMesShort(context,context.getResources().getString(R.string.dele_success));
+            Settings.isMainFragmentNeedRefresh = true;
+            ToastUtil.diaplayMesShort(context, context.getResources().getString(R.string.dele_success));
             AVAnalytics.onEvent(context, "tab1_tran_delete");
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private void updateCollectedStatus(record mBean){
-        if (mBean.getIscollected().equals("0")) {
-            mBean.setIscollected("1");
-            ToastUtil.diaplayMesShort(context,context.getResources().getString(R.string.favorite_success));
-        } else {
-            mBean.setIscollected("0");
-            ToastUtil.diaplayMesShort(context,context.getResources().getString(R.string.favorite_cancle));
-        }
-        mAdapter.notifyDataSetChanged();
+    private void updateCollectedStatus(int position) {
+        record mBean = beans.remove(position);
+        mAdapter.notifyItemRemoved(position);
+        mBean.setIscollected("0");
         DataBaseUtil.getInstance().update(mBean);
+        Settings.isMainFragmentNeedRefresh = true;
+        ToastUtil.diaplayMesShort(context, context.getResources().getString(R.string.favorite_cancle));
+    }
+
+    public void stopPlay() {
+        AudioTrackUtil.stopPlayOnline(mSpeechSynthesizer);
+        AudioTrackUtil.stopPlayPcm(mThread);
+    }
+
+    public void resetStatus() {
+        for (record mBean : beans) {
+            mBean.setBackup2("");
+        }
     }
 
     public class MyOnClickListener implements View.OnClickListener {
 
+        boolean isNotify = false;
         private record mBean;
         private ImageButton voice_play;
         private AnimationDrawable animationDrawable;
         private ProgressBar play_content_btn_progressbar;
         private boolean isPlayResult;
-        boolean isNotify = false;
 
-        private MyOnClickListener(record bean,AnimationDrawable mAnimationDrawable,ImageButton voice_play,
-                                  ProgressBar progressbar, boolean isPlayResult){
+        private MyOnClickListener(record bean, AnimationDrawable mAnimationDrawable, ImageButton voice_play,
+                                  ProgressBar progressbar, boolean isPlayResult) {
             this.mBean = bean;
             this.voice_play = voice_play;
             this.animationDrawable = mAnimationDrawable;
             this.play_content_btn_progressbar = progressbar;
             this.isPlayResult = isPlayResult;
         }
+
         @Override
         public void onClick(final View v) {
             boolean isPlay = true;
@@ -269,7 +278,7 @@ public class RcTranslateLiatItemViewHolder extends RecyclerView.ViewHolder {
                 String filepath = "";
                 String speakContent = "";
 
-                if (!mSharedPreferences.getBoolean(KeyUtil.IsShowAnswerUnread, false)){
+                if (!mSharedPreferences.getBoolean(KeyUtil.IsShowAnswerUnread, false)) {
                     isNotify = true;
                 }
                 if (!mSharedPreferences.getBoolean(KeyUtil.IsShowQuestionUnread, false)) {
@@ -340,7 +349,7 @@ public class RcTranslateLiatItemViewHolder extends RecyclerView.ViewHolder {
                                     animationDrawable.setOneShot(true);
                                     animationDrawable.stop();
                                     animationDrawable.selectDrawable(0);
-                                    if(isNotify){
+                                    if (isNotify) {
                                         mAdapter.notifyDataSetChanged();
                                     }
                                 }
@@ -376,17 +385,6 @@ public class RcTranslateLiatItemViewHolder extends RecyclerView.ViewHolder {
                     AVAnalytics.onEvent(context, "tab1_tran_play_voice");
                 }
             }
-        }
-    }
-
-    public void stopPlay(){
-        AudioTrackUtil.stopPlayOnline(mSpeechSynthesizer);
-        AudioTrackUtil.stopPlayPcm(mThread);
-    }
-
-    public void resetStatus() {
-        for (record mBean : beans) {
-            mBean.setBackup2("");
         }
     }
 

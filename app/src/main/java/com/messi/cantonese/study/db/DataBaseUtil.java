@@ -2,7 +2,7 @@ package com.messi.cantonese.study.db;
 
 import android.content.Context;
 import com.messi.cantonese.study.BaseApplication;
-import com.messi.cantonese.study.MainFragment;
+import com.messi.cantonese.study.R;
 import com.messi.cantonese.study.dao.DaoSession;
 import com.messi.cantonese.study.dao.Dictionary;
 import com.messi.cantonese.study.dao.DictionaryDao;
@@ -19,6 +19,7 @@ import com.messi.cantonese.study.dao.recordDao;
 import com.messi.cantonese.study.dao.SymbolListDaoDao;
 import com.messi.cantonese.study.dao.TagDao;
 import com.messi.cantonese.study.util.LogUtil;
+import com.messi.cantonese.study.util.Settings;
 
 import java.util.List;
 
@@ -62,7 +63,7 @@ public class DataBaseUtil {
     public long insert(Dictionary bean) {
         bean.setIscollected("0");
         bean.setVisit_times(0);
-        bean.setSpeak_speed(MainFragment.speed);
+        bean.setSpeak_speed(Settings.getSharedPreferences(appContext).getInt(appContext.getString(R.string.preference_key_tts_speed), 50));
         bean.setQuestionVoiceId(System.currentTimeMillis() + "");
         return mDictionaryDao.insert(bean);
     }
@@ -100,7 +101,7 @@ public class DataBaseUtil {
     public long insert(record bean) {
         bean.setIscollected("0");
         bean.setVisit_times(0);
-        bean.setSpeak_speed(MainFragment.speed);
+        bean.setSpeak_speed(Settings.getSharedPreferences(appContext).getInt(appContext.getString(R.string.preference_key_tts_speed), 50));
         bean.setQuestionVoiceId(System.currentTimeMillis() + "");
         bean.setResultVoiceId(System.currentTimeMillis() - 5 + "");
         return recordDao.insert(bean);

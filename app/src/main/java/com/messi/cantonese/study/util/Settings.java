@@ -109,6 +109,9 @@ public class Settings {
 	/**广阅通**/
 	public static final String GuangyuetongUrl = "http://p.contx.cn/v1/access?id=f9136944-bc17-4cb1-9b14-ece9de91b39d&uid=#uid#&ud=#ud#";
 
+	//应用静态常量：
+	public static boolean isMainFragmentNeedRefresh;
+
 	public static final String Email = "meixililulu@163.com";
 	
 	public static final String showapi_appid = "11619";	

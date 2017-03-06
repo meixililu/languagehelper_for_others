@@ -8,10 +8,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.messi.cantonese.study.LeisureFragment;
-import com.messi.cantonese.study.MainFragment;
 import com.messi.cantonese.study.MainFragmentOld;
 import com.messi.cantonese.study.R;
-import com.messi.cantonese.study.util.KeyUtil;
 
 public class MainPageAdapter extends FragmentPagerAdapter {
 
