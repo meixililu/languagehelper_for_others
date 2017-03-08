@@ -7,6 +7,7 @@ import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
@@ -39,7 +40,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class LoadingActivity extends Activity implements OnClickListener {
+public class LoadingActivity extends AppCompatActivity implements OnClickListener {
 
     @BindView(R.id.ad_source)
     TextView ad_source;
@@ -55,22 +56,30 @@ public class LoadingActivity extends Activity implements OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         try {
             TransparentStatusbar();
             setContentView(R.layout.loading_activity);
             ButterKnife.bind(this);
             init();
-            initGlide();
+            lazyInit();
         } catch (Exception e) {
             onError();
             e.printStackTrace();
         }
     }
 
-    private void initGlide() {
-        Glide.get(this).register(GlideUrl.class, InputStream.class,
-                new OkHttpUrlLoader.Factory(LanguagehelperHttpClient.initClient(this)));
+    private void lazyInit() {
+        getWindow().getDecorView().post(new Runnable() {
+            @Override
+            public void run() {
+                addToShowAdTimes();
+                ShortCut.addShortcut(LoadingActivity.this, mSharedPreferences);
+                Glide.get(LoadingActivity.this).register(GlideUrl.class, InputStream.class,
+                        new OkHttpUrlLoader.Factory(LanguagehelperHttpClient.initClient(LoadingActivity.this)));
+            }
+        });
     }
 
     private void TransparentStatusbar() {
@@ -87,8 +96,6 @@ public class LoadingActivity extends Activity implements OnClickListener {
         mHandler = new Handler();
         forward_img = (ImageView) findViewById(R.id.forward_img);
         forward_img.setOnClickListener(this);
-        ShortCut.addShortcut(this, mSharedPreferences);
-        addToShowAdTimes();
         if (ADUtil.isShowAd(this)) {
             IFLYNativeAd nativeAd = new IFLYNativeAd(this,ADUtil.KaiPingYSAD, mListener);
             nativeAd.setParameter(AdKeys.DOWNLOAD_ALERT, "true");

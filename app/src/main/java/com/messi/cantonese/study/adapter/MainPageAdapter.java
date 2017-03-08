@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import com.messi.cantonese.study.LeisureFragment;
 import com.messi.cantonese.study.MainFragmentOld;
 import com.messi.cantonese.study.R;
+import com.messi.cantonese.study.SpokenEnglishPractiseFragment;
 
 public class MainPageAdapter extends FragmentPagerAdapter {
 
@@ -25,7 +26,7 @@ public class MainPageAdapter extends FragmentPagerAdapter {
         this.mSharedPreferences = mSharedPreferences;
         CONTENT = new String[] {
         		mContext.getResources().getString(R.string.title_translate),
-//        		mContext.getResources().getString(R.string.title_study),
+        		mContext.getResources().getString(R.string.title_study),
         		mContext.getResources().getString(R.string.title_leisure)
         };
     }
@@ -35,11 +36,9 @@ public class MainPageAdapter extends FragmentPagerAdapter {
         if( position == 0 ){
             return MainFragmentOld.getInstance(bundle,mContext);
         }else if( position == 1 ){
-            return LeisureFragment.getInstance();
-//        	return StudyFragment.getInstance();
+            return SpokenEnglishPractiseFragment.getInstance();
         }else if( position == 2 ){
-            return new Fragment();
-//        	return LeisureFragment.getInstance();
+            return LeisureFragment.getInstance();
         }
         return null;
     }

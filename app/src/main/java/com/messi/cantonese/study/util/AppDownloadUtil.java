@@ -112,9 +112,9 @@ public class AppDownloadUtil {
 	
 	private void updateDownloadTime(){
 		if(path.equals(SDCardUtil.apkPath)){
-			AVObject post = AVObject.createWithoutData(AVOUtil.AppRecommendDetail.AppRecommendDetail, AVObjectId);
-			post.increment(AVOUtil.AppRecommendDetail.DownloadTimes);
-			post.saveInBackground();
+//			AVObject post = AVObject.createWithoutData(AVOUtil.AppRecommendDetail.AppRecommendDetail, AVObjectId);
+//			post.increment(AVOUtil.AppRecommendDetail.DownloadTimes);
+//			post.saveInBackground();
 		}else if(path.equals(SDCardUtil.apkUpdatePath)){
 			AVObject post = AVObject.createWithoutData(AVOUtil.UpdateInfo.UpdateInfo, AVObjectId);
 			post.increment(AVOUtil.UpdateInfo.DownloadTimes);

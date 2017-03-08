@@ -279,11 +279,7 @@ public class RcTranslateLiatItemViewHolder extends RecyclerView.ViewHolder {
                     Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.IsShowAnswerUnread, true);
                     filepath = path + mBean.getResultVoiceId() + ".pcm";
                     mBean.setResultAudioPath(filepath);
-                    if (!TextUtils.isEmpty(mBean.getBackup1())) {
-                        speakContent = mBean.getBackup1();
-                    } else {
-                        speakContent = mBean.getEnglish();
-                    }
+                    speakContent = mBean.getEnglish();
                 } else {
                     Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.IsShowQuestionUnread, true);
                     filepath = path + mBean.getQuestionVoiceId() + ".pcm";
@@ -299,15 +295,27 @@ public class RcTranslateLiatItemViewHolder extends RecyclerView.ViewHolder {
                 }
                 mSpeechSynthesizer.setParameter(SpeechConstant.TTS_AUDIO_PATH, filepath);
                 if (!AudioTrackUtil.isFileExists(filepath)) {
+                    String speaker = "";
                     if (isPlayResult) {
+                        if(mBean.getBackup3().equals(Settings.yue)){
+                            speaker = XFUtil.SpeakerHk;
+                        }else{
+                            speaker = XFUtil.SpeakerZh;
+                        }
                         mBean.setBackup2(XFUtil.PlayResultOnline);
                     } else {
+                        if(mBean.getBackup3().equals(Settings.yue)){
+                            speaker = XFUtil.SpeakerZh;
+                        }else{
+                            speaker = XFUtil.SpeakerHk;
+                        }
                         mBean.setBackup2(XFUtil.PlayQueryOnline);
                     }
                     play_content_btn_progressbar.setVisibility(View.VISIBLE);
                     voice_play.setVisibility(View.GONE);
+
                     XFUtil.showSpeechSynthesizer(context, mSharedPreferences, mSpeechSynthesizer, speakContent,
-                            new SynthesizerListener() {
+                            speaker,new SynthesizerListener() {
                                 @Override
                                 public void onSpeakResumed() {
                                 }

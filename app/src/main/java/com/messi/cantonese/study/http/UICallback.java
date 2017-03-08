@@ -33,13 +33,21 @@ public class UICallback implements Callback{
 	public void onResponse(final Response mResponse) throws IOException {
 		if (mResponse != null && mResponse.isSuccessful()){
 			responseString = mResponse.body().string();
-		}
-		if(context != null && !TextUtils.isEmpty(responseString)){
+			if(!TextUtils.isEmpty(responseString)){
+				context.runOnUiThread(new Runnable() {
+					@Override
+					public void run() {
+						onFinished();
+						onResponsed(responseString);
+					}
+				});
+			}
+		}else {
 			context.runOnUiThread(new Runnable() {
 				@Override
 				public void run() {
 					onFinished();
-					onResponsed(responseString);
+					onFailured();
 				}
 			});
 		}

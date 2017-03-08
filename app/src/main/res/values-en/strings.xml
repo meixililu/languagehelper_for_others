@@ -1,10 +1,9 @@
 <resources>
 
-    <string name="app_name">Translator</string>
+    <string name="app_name">Cantonese</string>
     <string name="app_des">You are worth it</string>
-    <string name="app_ad">Learn Chinese,You are worth it.</string>
+    <string name="app_ad">Learn Cantonese,You are worth it.</string>
     <string name="author">Author：Lilu</string>
-    <string name="designer">Designer：Liqianxia</string>
     <string name="title_about">About</string>
     <string name="title_share_preview">Preview</string>
     <string name="title_TranslatePractice">Practice</string>
@@ -18,7 +17,7 @@
     <string name="title_english_jokes">Jokes</string>
     <string name="title_english_video">Videos</string>
     <string name="title_english_story">Story</string>
-    <string name="title_sougo_wechat">Wechat English</string>
+    <string name="title_sougo_wechat">Wechat Cantonese</string>
     <string name="title_juhe">Synthesize</string>
     <string name="title_help">Help</string>
     <string name="title_more">More</string>
@@ -61,7 +60,7 @@
     <string name="menu_settings">Play Speed</string>
     <string name="app_name_share">App:Translator</string>
     <string name="share_text_hint">please input something</string>
-    <string name="input_et_hint">please input chinese or english</string>
+    <string name="input_et_hint">please input mandarin or cantonese</string>
     <string name="ch_dic_input_hint">please input chinese</string>
     <string name="input_translate_hint">please translate</string>
     <string name="search">Search</string>
@@ -93,8 +92,8 @@
     <string name="dic_tab_cidian">Dictionary</string>
     <string name="dic_tab_shoucang">Collected</string>
     
-    <string name="speak_english">please tap mic to speak english</string>
-    <string name="speak_chinese">please tap mic to speak chinese</string>
+    <string name="speak_english">please tap mic to speak cantonese</string>
+    <string name="speak_chinese">please tap mic to speak mandarin</string>
     <string name="your_turn">Your Turn</string>
     
     <string name="app_id">50aa1213</string>
@@ -149,11 +148,11 @@
 	<string name="errcode_cancel">cancel</string>
 	<string name="errcode_deny">deny</string>
 	<string name="errcode_unknown">unknown</string>
-	<string name="chinese">Zh</string>
-	<string name="english">En</string>
+	<string name="chinese">Mandarin</string>
+	<string name="english">Cantonese</string>
 	<string name="collect">favorite</string>
 	<string name="wechat">wechat</string>
-	<string name="speak_prompt">请根据您说的语言点击中文或者英文！</string>
+	<string name="speak_prompt">please tap mic to speak mandarin or cantonese</string>
 	<string name="webview_reload">Tap To Reload</string>
 	
 	
@@ -178,9 +177,9 @@
 	<string name="cailing_ad_prompt">三块钱你买不了吃亏，买不了上当，只需三块钱，就能让电话另一头的TA拥有一次美好而有爱的等待，而不是平凡并且枯燥的嘟。。。嘟。。。嘟。。。还等什么呢，赶紧操作起来，为TA设置一段好玩又有新意的铃声吧! http://api.openspeech.cn/kyls/NTBhYTEyMTM=</string>
 	<string name="yuedu_ad_prompt">专注随身阅读30年! http://api.openspeech.cn/cmread/NTBhYTEyMTM=</string>
 	<string name="hotel_ad_prompt">专注开房30年! http://api.openspeech.cn/trip/NTBhYTEyMTM=</string>
-	<string name="invite_friends_prompt">so cool！ http://a.app.qq.com/o/simple.jsp?pkgname=com.messi.languagehelper</string>
+	<string name="invite_friends_prompt">so cool！ http://a.app.qq.com/o/simple.jsp?pkgname=com.messi.cantonese.study</string>
 
-    <string name="input_et_hint_dictionary">Please input Chinese or English word</string>
+    <string name="input_et_hint_dictionary">Please input Chinese or Cantonese word</string>
 	<string name="dailysentence">Daily Sentence</string>
 	<string name="spoken_english_practice">Practice</string>
 	<string name="spoken_english_reading">Learn</string>
@@ -196,8 +195,8 @@
 	
 	<string name="leisuer_one">Ringback Music</string>
 	<string name="leisuer_one_subtitle">Listen to the music</string>
-    <string name="leisuer_sougou_wechat">Wechat English</string>
-    <string name="leisuer_sougou_wechat_subtitle">All the Wechat English</string>
+    <string name="leisuer_sougou_wechat">Wechat Cantonese</string>
+    <string name="leisuer_sougou_wechat_subtitle">All the Wechat Cantonese</string>
 	<string name="leisuer_reading">Readings</string>
 	<string name="leisuer_reading_subtitle">Do some Reading</string>
 	<string name="leisuer_twists">Brain twists</string>
@@ -231,12 +230,11 @@
 	<string name="translate_content">Translate This Sentence</string>
 	<string name="practice_dialog_listen">Listen</string>
 	<string name="practice_dialog_readafterme">Read</string>
-	<string name="getcontent_1">Please Look Forward To!</string>
-	<string name="getcontent_2">To Help Developer,Check Here!</string>
+
+    <string name="learn_english">"Learn Cantonese\nPerseverance\nAccumulation "</string>
 	
-	<string name="learn_english">Learn Chinese\nPerseverance\nAccumulation </string>
-	
-	<string name="follow_teacher">Follow Teacher</string>
 	<string name="server_error">Server Error,Retry Later Please!</string>
 	<string name="network_error">Network Error,Retry Later Please!</string>
+    <string name="foreign_website_subtitle"></string>
+    <string name="wechat_long_click">long click to see</string>
 </resources>

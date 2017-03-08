@@ -75,7 +75,7 @@ public class MoreActivity extends BaseActivity implements OnClickListener {
                 try {
                     Intent intent = new Intent();
                     intent.setAction(Intent.ACTION_VIEW);
-                    intent.setData(Uri.parse("market://details?id=com.messi.languagehelper"));
+                    intent.setData(Uri.parse("market://details?id=com.messi.cantonese.study"));
                     MoreActivity.this.startActivity(intent);
                     AVAnalytics.onEvent(MoreActivity.this, "more_pg_tocommendpg_btn");
                 } catch (Exception e) {

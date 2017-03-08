@@ -327,6 +327,7 @@
             android:layout_marginLeft="@dimen/padding_7"
             android:layout_marginRight="@dimen/padding_7"
             android:layout_marginTop="@dimen/padding_7"
+            android:layout_marginBottom="@dimen/padding_7"
             android:background="@color/light_green"
             android:foreground="@drawable/framelayout_selector"
             android:orientation="vertical"
@@ -368,6 +369,7 @@
             android:layout_marginLeft="@dimen/padding_7"
             android:layout_marginRight="@dimen/padding_7"
             android:layout_marginTop="@dimen/padding_7"
+            android:visibility="gone"
             android:background="#EF9A9A"
             android:foreground="@drawable/framelayout_selector"
             android:orientation="vertical" >

@@ -17,29 +17,29 @@ public class ScoreUtil {
 		LogUtil.DefalutLog("old---content:"+content+"---result:"+result);
 		SpannableStringBuilder sb = new SpannableStringBuilder();
 		UserSpeakBean bean = new UserSpeakBean();
-		String mResult = result.replaceAll("\\s+"," ");
-		String mContent = content.replaceAll("\\s+"," ");
+		String mResult = result.replaceAll("\\s+"," ").replaceAll("\\p{P}", "");
+		String mContent = content.replaceAll("\\s+"," ").replaceAll("\\p{P}", "");
 		LogUtil.DefalutLog("old---content:"+mContent+"---result:"+mResult);
-		String[] mResults = mResult.split(" ");
-		String[] mContents = mContent.split(" ");
+		String[] mResults = mResult.split("");
+		String[] mContents = mContent.split("");
 		int count = 0;
 		for(String item : mContents){
 			String itemTemp = item.replaceAll("\\p{P}", "");
-			boolean isRight = false;
-			for(String str : mResults){
-				String strTemp = str.replaceAll("\\p{P}", "");
-				if(itemTemp.toLowerCase().equals(strTemp.toLowerCase())){
-					isRight = true;
-					count ++;
-					break;
+			if(!TextUtils.isEmpty(itemTemp.trim())){
+				boolean isRight = false;
+				for(String str : mResults){
+					String strTemp = str.replaceAll("\\p{P}", "");
+					if(itemTemp.equals(strTemp)){
+						isRight = true;
+						count ++;
+						break;
+					}
 				}
-			}
-			if(isRight){
-				sb.append( setColor(mContext,item,R.color.green) );
-				sb.append(" ");
-			}else{
-				sb.append( setColor(mContext,item, R.color.text_red) );
-				sb.append(" ");
+				if(isRight){
+					sb.append( setColor(mContext,item,R.color.green) );
+				}else{
+					sb.append( setColor(mContext,item, R.color.text_red) );
+				}
 			}
 		}
 		double length = 0;
@@ -65,32 +65,35 @@ public class ScoreUtil {
 		SpannableStringBuilder sb = new SpannableStringBuilder();
 		UserSpeakBean bean = new UserSpeakBean();
 		String mResult = result.replaceAll("\\s+"," ");
-		String mContent = content.replaceAll("\\s+"," ");
+		String mContent = content.replaceAll("\\s+"," ").replaceAll("\\p{P}", "");
 		LogUtil.DefalutLog("old---content:"+mContent+"---result:"+mResult);
-		String[] mResults = mResult.split(" ");
-		String[] mContents = mContent.split(" ");
+		String[] mResults = mResult.split("");
+		String[] mContents = mContent.split("");
 		int count = 0;
 		for(String item : mResults){
 			String itemTemp = item.replaceAll("\\p{P}", "");
-			boolean isRight = false;
-			for(String str : mContents){
-				String strTemp = str.replaceAll("\\p{P}", "");
-				if(itemTemp.toLowerCase().equals(strTemp.toLowerCase())){
-					isRight = true;
-					count ++;
-					break;
+			if(!TextUtils.isEmpty(itemTemp.trim())){
+				boolean isRight = false;
+				for(String str : mContents){
+					String strTemp = str.replaceAll("\\p{P}", "");
+					if(itemTemp.equals(strTemp)){
+						isRight = true;
+						count ++;
+						break;
+					}
 				}
-			}
-			if(isRight){
-				sb.append( setColor(mContext,item,R.color.green) );
-				sb.append(" ");
-			}else{
-				sb.append( setColor(mContext,item,R.color.text_red) );
-				sb.append(" ");
+				if(isRight){
+					sb.append( setColor(mContext,item,R.color.green) );
+				}else{
+					sb.append( setColor(mContext,item,R.color.text_red) );
+				}
+			}else {
+				sb.append(item);
 			}
 		}
+		String mResult_for_len = result.replaceAll("\\s+"," ").replaceAll("\\p{P}", "");
 		double length = 0;
-		for(String str : mResults){
+		for(String str : mResult_for_len.split("")){
 			if(!TextUtils.isEmpty(str.trim())){
 				length++;
 			}

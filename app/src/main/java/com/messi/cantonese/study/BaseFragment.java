@@ -28,14 +28,16 @@ public class BaseFragment extends Fragment {
 		if(getUserVisibleHint() && !isHasLoadData){
 			loadDataOnStart();
 		}
+		LogUtil.DefalutLog("onCreateView:"+isHasLoadData);
 		return super.onCreateView(inflater, container, savedInstanceState);
 	}
 
 	@Override
 	public void setUserVisibleHint(boolean isVisibleToUser) {
 		super.setUserVisibleHint(isVisibleToUser);
+		LogUtil.DefalutLog("setUserVisibleHint:"+isVisibleToUser);
 		misVisibleToUser = isVisibleToUser;
-		if(getActivity() != null && !isHasLoadData){
+		if(getActivity() != null && !isHasLoadData && isVisibleToUser){
 			loadDataOnStart();
 		}
 	}

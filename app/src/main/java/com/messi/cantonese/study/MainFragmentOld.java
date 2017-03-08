@@ -55,12 +55,12 @@ public class MainFragmentOld extends Fragment implements OnClickListener {
     public static MainFragmentOld mMainFragment;
     private EditText input_et;
     private FrameLayout submit_btn_cover;
-    private FrameLayout photo_tran_btn;
     private FrameLayout clear_btn_layout;
     private Button voice_btn;
     private LinearLayout speak_round_layout;
     private RadioButton cb_speak_language_ch, cb_speak_language_en;
     private RecyclerView recent_used_lv;
+    private RadioButton rb_to_yue,rb_to_zh;
     /**
      * record
      **/
@@ -113,6 +113,7 @@ public class MainFragmentOld extends Fragment implements OnClickListener {
             input_et.setSelection(input_et.length());
             if (isLast) {
                 finishRecord();
+                JudgeSpeakTranslateLan();
                 submit();
             }
         }
@@ -183,7 +184,6 @@ public class MainFragmentOld extends Fragment implements OnClickListener {
         recent_used_lv = (RecyclerView) view.findViewById(R.id.recent_used_lv);
         input_et = (EditText) view.findViewById(R.id.input_et);
         submit_btn_cover = (FrameLayout) view.findViewById(R.id.submit_btn_cover);
-        photo_tran_btn = (FrameLayout) view.findViewById(R.id.photo_tran_btn);
         cb_speak_language_ch = (RadioButton) view.findViewById(R.id.cb_speak_language_ch);
         cb_speak_language_en = (RadioButton) view.findViewById(R.id.cb_speak_language_en);
         speak_round_layout = (LinearLayout) view.findViewById(R.id.speak_round_layout);
@@ -193,6 +193,8 @@ public class MainFragmentOld extends Fragment implements OnClickListener {
         fade_in = AnimationUtils.loadAnimation(mActivity, R.anim.fade_in);
         fade_out = AnimationUtils.loadAnimation(mActivity, R.anim.fade_out);
         voice_btn = (Button) view.findViewById(R.id.voice_btn);
+        rb_to_yue = (RadioButton) view.findViewById(R.id.rb_to_yue);
+        rb_to_zh = (RadioButton) view.findViewById(R.id.rb_to_zh);
 
         beans = new ArrayList<record>();
         beans.addAll(DataBaseUtil.getInstance().getDataListRecord(0, Settings.offset));
@@ -209,17 +211,30 @@ public class MainFragmentOld extends Fragment implements OnClickListener {
         mAdapter.setFooter(new Object());
         recent_used_lv.setAdapter(mAdapter);
 
-        initLanguage();
-        photo_tran_btn.setOnClickListener(this);
         submit_btn_cover.setOnClickListener(this);
         cb_speak_language_ch.setOnClickListener(this);
         cb_speak_language_en.setOnClickListener(this);
         speak_round_layout.setOnClickListener(this);
         clear_btn_layout.setOnClickListener(this);
+        rb_to_yue.setOnClickListener(this);
+        rb_to_zh.setOnClickListener(this);
+        initLanguage();
+        initTranslateSelected();
+    }
+
+    private void initTranslateSelected(){
+        boolean IsTranslateYue = mSharedPreferences.getBoolean(KeyUtil.IsTranslateYueKey, true);
+        if(IsTranslateYue){
+            rb_to_yue.setChecked(true);
+            rb_to_zh.setChecked(false);
+        }else{
+            rb_to_yue.setChecked(false);
+            rb_to_zh.setChecked(true);
+        }
     }
 
     private void initSample() {
-        record sampleBean = new record("Click the mic to speak", "点击话筒说话");
+        record sampleBean = new record("点击咪讲嘢", "点击话筒说话", "yue");
         DataBaseUtil.getInstance().insert(sampleBean);
         beans.add(0, sampleBean);
     }
@@ -238,11 +253,10 @@ public class MainFragmentOld extends Fragment implements OnClickListener {
     public void onClick(View v) {
         if (v.getId() == R.id.submit_btn_cover) {
             hideIME();
+            JudgeBtnTranslateLan();
             submit();
             AVAnalytics.onEvent(mActivity, "tab1_submit_btn");
-        } else if (v.getId() == R.id.photo_tran_btn) {
-//			photoSelectDialog();
-        } else if (v.getId() == R.id.speak_round_layout) {
+        }  else if (v.getId() == R.id.speak_round_layout) {
             showIatDialog();
             AVAnalytics.onEvent(mActivity, "tab1_speak_btn");
         } else if (v.getId() == R.id.clear_btn_layout) {
@@ -255,9 +269,25 @@ public class MainFragmentOld extends Fragment implements OnClickListener {
             AVAnalytics.onEvent(mActivity, "tab1_zh_sbtn");
         } else if (v.getId() == R.id.cb_speak_language_en) {
             cb_speak_language_ch.setChecked(false);
-            Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.TranUserSelectLanguage, XFUtil.VoiceEngineEN);
+            Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.TranUserSelectLanguage, XFUtil.VoiceEngineHK);
             ToastUtil.diaplayMesShort(mActivity, mActivity.getResources().getString(R.string.speak_english));
             AVAnalytics.onEvent(mActivity, "tab1_en_sbtn");
+        }
+    }
+
+    private void JudgeBtnTranslateLan(){
+        if(rb_to_yue.isChecked()){
+            LanguagehelperHttpClient.setTranslateLan(true);
+        }else{
+            LanguagehelperHttpClient.setTranslateLan(false);
+        }
+    }
+
+    private void JudgeSpeakTranslateLan(){
+        if(cb_speak_language_ch.isChecked()){
+            LanguagehelperHttpClient.setTranslateLan(true);
+        }else{
+            LanguagehelperHttpClient.setTranslateLan(false);
         }
     }
 
@@ -266,10 +296,14 @@ public class MainFragmentOld extends Fragment implements OnClickListener {
         super.setUserVisibleHint(isVisibleToUser);
         LogUtil.DefalutLog("MainFragment-setUserVisibleHint");
         if (isVisibleToUser) {
-            if (Settings.isMainFragmentNeedRefresh) {
-                Settings.isMainFragmentNeedRefresh = false;
-                new WaitTask().execute();
-            }
+            syncData();
+        }
+    }
+
+    private void syncData(){
+        if (Settings.isMainFragmentNeedRefresh) {
+            Settings.isMainFragmentNeedRefresh = false;
+            new WaitTask().execute();
         }
     }
 
@@ -277,26 +311,26 @@ public class MainFragmentOld extends Fragment implements OnClickListener {
     public void onResume() {
         super.onResume();
         LogUtil.DefalutLog("MainFragment-onResume");
-        if (Settings.isMainFragmentNeedRefresh) {
-            Settings.isMainFragmentNeedRefresh = false;
-            new WaitTask().execute();
-        }
+        syncData();
     }
 
     /**
      * send translate request
      */
-    private void RequestJinShanNewAsyncTask() {
+    private void Request388gcomAsyncTask() {
         loadding();
         submit_btn_cover.setEnabled(false);
-        LanguagehelperHttpClient.postIcibaNew(new UICallback(mActivity) {
+        LanguagehelperHttpClient.get388gcom(new UICallback(mActivity) {
             @Override
             public void onResponsed(String mResult) {
                 try {
                     if (!TextUtils.isEmpty(mResult)) {
-                        if (JsonParser.isJson(mResult)) {
-                            LogUtil.DefalutLog(mResult);
-                            setJinshanNewApiData(JSON.parseObject(mResult, IcibaNew.class));
+                        if (!TextUtils.isEmpty(mResult) && !mResult.equals("no")
+                                && mResult.length() < (Settings.q.length()+80)) {
+                            LogUtil.DefalutLog("Request388gcomAsyncTask:"+mResult);
+                            currentDialogBean = new record(mResult, Settings.q, Settings.to);
+                            insertData();
+                            autoClearAndautoPlay();
                         } else {
                             RequestAsyncTask();
                         }
@@ -304,107 +338,14 @@ public class MainFragmentOld extends Fragment implements OnClickListener {
                         RequestAsyncTask();
                     }
                 } catch (Exception e) {
+                    RequestAsyncTask();
                     e.printStackTrace();
                 }
             }
-
             @Override
             public void onFailured() {
-                showToast(mActivity.getResources().getString(R.string.network_error));
+                RequestAsyncTask();
             }
-
-            @Override
-            public void onFinished() {
-                onFinishRequest();
-            }
-        });
-    }
-
-    private void setJinshanNewApiData(IcibaNew mIciba) {
-        try {
-            if (mIciba != null && mIciba.getContent() != null) {
-                if (mIciba.getStatus().equals("0")) {
-                    StringBuilder sb = new StringBuilder();
-                    StringBuilder sbplay = new StringBuilder();
-                    if (!TextUtils.isEmpty(mIciba.getContent().getPh_en())) {
-                        sb.append("英[");
-                        sb.append(mIciba.getContent().getPh_en());
-                        sb.append("]    ");
-                    }
-                    if (!TextUtils.isEmpty(mIciba.getContent().getPh_am())) {
-                        sb.append("美[");
-                        sb.append(mIciba.getContent().getPh_am());
-                        sb.append("]");
-                    }
-                    if (sb.length() > 0) {
-                        sb.append("\n");
-                    }
-                    if (mIciba.getContent().getWord_mean() != null) {
-                        for (String item : mIciba.getContent().getWord_mean()) {
-                            sb.append(item.trim());
-                            sb.append("\n");
-                            sbplay.append(item);
-                            sbplay.append(",");
-                        }
-                    }
-                    String resultStr = sbplay.toString();
-                    resultStr = resultStr.replace("n.", "");
-                    resultStr = resultStr.replace("adj.", "");
-                    resultStr = resultStr.replace("adv.", "");
-                    resultStr = resultStr.replace("vi.", "");
-                    resultStr = resultStr.replace("vt.", "");
-                    resultStr = resultStr.replace("v.", "");
-                    currentDialogBean = new record(sb.substring(0, sb.lastIndexOf("\n")), Settings.q);
-                    currentDialogBean.setBackup1(resultStr);
-                    if (!TextUtils.isEmpty(mIciba.getContent().getPh_tts_mp3())) {
-                        currentDialogBean.setBackup3(mIciba.getContent().getPh_tts_mp3());
-                    }
-                    insertData();
-                    autoClearAndautoPlay();
-                } else if (mIciba.getStatus().equals("1")) {
-                    currentDialogBean = new record(mIciba.getContent().getOut().replaceAll("<br/>", "").trim(), Settings.q);
-                    insertData();
-                    autoClearAndautoPlay();
-                } else {
-                    RequestJinShanAsyncTask();
-                }
-            } else {
-                RequestJinShanAsyncTask();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * send translate request
-     */
-    private void RequestJinShanAsyncTask() {
-        loadding();
-        submit_btn_cover.setEnabled(false);
-        LanguagehelperHttpClient.postIciba(new UICallback(mActivity) {
-            @Override
-            public void onResponsed(String mResult) {
-                try {
-                    if (!TextUtils.isEmpty(mResult)) {
-                        if (JsonParser.isJson(mResult)) {
-                            setJinShanResult(mResult);
-                        } else {
-                            RequestAsyncTask();
-                        }
-                    } else {
-                        RequestAsyncTask();
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onFailured() {
-                showToast(mActivity.getResources().getString(R.string.network_error));
-            }
-
             @Override
             public void onFinished() {
                 onFinishRequest();
@@ -415,39 +356,6 @@ public class MainFragmentOld extends Fragment implements OnClickListener {
     private void onFinishRequest() {
         finishLoadding();
         submit_btn_cover.setEnabled(true);
-    }
-
-    private void setJinShanResult(String responseString) {
-        try {
-            Iciba mIciba = JSON.parseObject(responseString, Iciba.class);
-            if (mIciba != null) {
-                if (!TextUtils.isEmpty(mIciba.getRetcopy())) {
-                    currentDialogBean = new record(mIciba.getRetcopy(), Settings.q);
-                    insertData();
-                    autoClearAndautoPlay();
-                    LogUtil.DefalutLog("ciba---getRetcopy---mDataBaseUtil:" + currentDialogBean.toString());
-                } else if (!TextUtils.isEmpty(mIciba.getRet())) {
-                    String result = getHtmlContext(mIciba.getRet());
-                    if (!TextUtils.isEmpty(result)) {
-                        currentDialogBean = new record(result, Settings.q);
-                        insertData();
-                        autoClearAndautoPlay();
-                        LogUtil.DefalutLog("ciba---getRet---mDataBaseUtil:" + currentDialogBean.toString());
-                    } else {
-                        LogUtil.DefalutLog("ciba getRet error,change to baidu translate");
-                        RequestAsyncTask();
-                    }
-                } else {
-                    LogUtil.DefalutLog("ciba error,change to baidu translate");
-                    RequestAsyncTask();
-                }
-            } else {
-                RequestAsyncTask();
-            }
-        } catch (Exception e) {
-            RequestAsyncTask();
-            e.printStackTrace();
-        }
     }
 
     public void insertData() {
@@ -461,22 +369,6 @@ public class MainFragmentOld extends Fragment implements OnClickListener {
         if (mSharedPreferences.getBoolean(KeyUtil.AutoPlayResult, false)) {
             new AutoPlayWaitTask().execute();
         }
-    }
-
-    public String getHtmlContext(String html) {
-        StringBuilder sb = new StringBuilder();
-        Pattern p = Pattern.compile("<span class=\"dd\">([^</span>]*)");//匹配<title>开头，</title>结尾的文档
-        Matcher m = p.matcher(html);//开始编译
-        int count = 0;
-        while (m.find()) {
-            if (count > 0) {
-                sb.append("\n");
-            }
-            sb.append(m.group(1).trim());//获取被匹配的部分
-            count++;
-        }
-
-        return sb.toString();
     }
 
     private void RequestAsyncTask() {
@@ -496,14 +388,14 @@ public class MainFragmentOld extends Fragment implements OnClickListener {
             @Override
             public void onResponsed(String responseString) {
                 if (!TextUtils.isEmpty(responseString)) {
+                    LogUtil.DefalutLog("RequestAsyncTask:"+responseString);
                     dstString = JsonParser.getTranslateResult(responseString);
                     if (dstString.contains("error_msg:")) {
                         showToast(dstString);
                     } else {
-                        currentDialogBean = new record(dstString, Settings.q);
+                        currentDialogBean = new record(dstString, Settings.q, Settings.to);
                         insertData();
                         autoClearAndautoPlay();
-                        LogUtil.DefalutLog("baidu---mDataBaseUtil:" + currentDialogBean.toString());
                     }
                 } else {
                     showToast(mActivity.getResources().getString(
@@ -608,7 +500,7 @@ public class MainFragmentOld extends Fragment implements OnClickListener {
             if (",.?!;:'，。？！‘；：".contains(last)) {
                 Settings.q = Settings.q.substring(0, Settings.q.length() - 1);
             }
-            RequestJinShanNewAsyncTask();
+            Request388gcomAsyncTask();
         } else {
             showToast(mActivity.getResources().getString(R.string.input_et_hint));
             finishLoadding();
@@ -666,7 +558,6 @@ public class MainFragmentOld extends Fragment implements OnClickListener {
             }
             return null;
         }
-
         @Override
         protected void onPostExecute(Void result) {
             autoPlay();

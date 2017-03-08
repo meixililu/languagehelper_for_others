@@ -123,28 +123,22 @@ public class LanguagehelperHttpClient {
 		}
 	}
 
-	public static void postIcibaNew(Callback mCallback) {
+	public static void get388gcom(Callback mCallback) {
 		try {
 			String from = "";
 			String to = "";
-			if (StringUtils.isEnglish(Settings.q)) {
-				from = "en-US";
-				to = "zh-CN";
+			if (Settings.to.equals(Settings.yue)) {
+				from = "zh-chs";
+				to = "yuey";
 			} else {
-				from = "zh-CN";
-				to = "en-US";
+				from = "yuey";
+				to = "zh-chs";
 			}
-			RequestBody formBody = new FormEncodingBuilder()
-				.add("w", Settings.q)
-				.add("", "")
-				.add("f", from)
-				.add("t", to)
-				.build();
+			String url = Settings.Tran388GCOmUrl + Settings.q + "&from=" + from + "&to=" + to;
 			Request request = new Request.Builder()
-				.url(Settings.IcibaTranslateNewUrl)
-				.header("User-Agent", Header)
-				.post(formBody)
-				.build();
+					.url(url)
+					.header("User-Agent", Header)
+					.build();
 			client.newCall(request).enqueue(mCallback);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -196,5 +190,15 @@ public class LanguagehelperHttpClient {
 	public static String getBaiduTranslateSign(long salt) {
 		String str = Settings.baidu_appid + Settings.q + salt + Settings.baidu_secretkey;
 		return MD5.encode(str);
+	}
+
+	public static void setTranslateLan(boolean isToYue){
+		if(isToYue){
+			Settings.from = Settings.zh;
+			Settings.to = Settings.yue;
+		}else{
+			Settings.from = Settings.yue;
+			Settings.to = Settings.zh;
+		}
 	}
 }

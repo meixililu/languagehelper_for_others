@@ -50,8 +50,8 @@ public class InvestListAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 		final AVObject mAVObject = avObjects.get(position);
-		holder.name.setText( mAVObject.getString(AVOUtil.InvestList.name) );
-		holder.des.setText( mAVObject.getString(AVOUtil.InvestList.des) );
+//		holder.name.setText( mAVObject.getString(AVOUtil.InvestList.name) );
+//		holder.des.setText( mAVObject.getString(AVOUtil.InvestList.des) );
 		return convertView;
 	}
 

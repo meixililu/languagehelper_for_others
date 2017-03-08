@@ -35,30 +35,12 @@
                     android:gravity="left"
                     android:hint="@string/input_et_hint"
                     android:imeOptions="actionDone"
-                    android:minLines="3"
+                    android:minLines="4"
                     android:textColor="@color/text_black"
                     android:textColorHint="@color/text_grey"
                     android:textCursorDrawable="@null"
                     android:textSize="@dimen/bigger" />
 
-                <FrameLayout
-                    android:id="@+id/photo_tran_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:foreground="@drawable/framelayout_selector"
-                    android:paddingLeft="10dp"
-                    android:paddingTop="3dp"
-                    android:paddingRight="10dp"
-                    android:paddingBottom="3dp"
-                    android:visibility="gone"
-                    >
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_photo_camera_grey600_24dp"
-                        />
-                </FrameLayout>
                 <FrameLayout
                     android:id="@+id/submit_btn_cover"
                     android:layout_width="match_parent"
@@ -78,6 +60,40 @@
                         />
                 </FrameLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@id/submit_btn_cover"
+                    android:gravity="right|bottom"
+                    android:layout_alignParentRight="true"
+                    >
+                <RadioGroup
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="bottom"
+                    android:layout_weight="1"
+                    android:layout_marginBottom="5dp"
+                    >
+                    <RadioButton
+                        android:id="@+id/rb_to_yue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:button="@null"
+                        android:layout_marginLeft="@dimen/padding_10"
+                        android:textColor="@drawable/txt_color_gray_blue_selector"
+                        android:text="中>粤"
+                        />
+                    <RadioButton
+                        android:id="@+id/rb_to_zh"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/padding_20"
+                        android:button="@null"
+                        android:textColor="@drawable/txt_color_gray_blue_selector"
+                        android:text="粤>中"
+                        />
+                </RadioGroup>
                 <FrameLayout
                     android:id="@+id/clear_btn_layout"
                     android:layout_width="wrap_content"
@@ -95,6 +111,7 @@
                         android:background="@drawable/delete"
                         android:clickable="false" />
                 </FrameLayout>
+                </LinearLayout>
             </RelativeLayout>
         </android.support.v4.widget.NestedScrollView>
 

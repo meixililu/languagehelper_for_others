@@ -144,7 +144,7 @@ public class KeyUtil {
 
 	public static final String IsShowDicKeyboardLayout = "IsShowDicKeyboardLayout";
 
-	public static final String DicUserSelectLanguage = "DicUserSelectLanguage";
+	public static final String IsTranslateYueKey = "IsTranslateYueKey";
 
 	
 	

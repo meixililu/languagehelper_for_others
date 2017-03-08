@@ -41,7 +41,9 @@ public class Settings {
 	public static String IcibaTranslateUrl = "http://fy.iciba.com/api.php";
 
 	public static String IcibaTranslateNewUrl = "http://fy.iciba.com/ajax.php?a=fy";
-	
+
+	public static String Tran388GCOmUrl = "http://www.388g.com/tts/trans.php?tool=bd&q=";
+
 	public static String BaiduOCRUrl = "http://apis.baidu.com/idl_baidu/baiduocrpay/idlocrpaid";
 	
 	/**juhe dictionary api**/
@@ -95,7 +97,7 @@ public class Settings {
 
 	public static final String ToutiaoNewsUrl = "http://v.juhe.cn/toutiao/index";
 
-	public static final String SougoUrl = "http://weixin.sogou.com/weixinwap?ie=utf8&s_from=input&type=2&t=1488020521571&pg=webSearchList&_sug_=y&_sug_type_=&query=%E8%8B%B1%E8%AF%AD";
+	public static final String SougoUrl = "http://weixin.sogou.com/weixinwap?ie=utf8&s_from=input&type=2&t=1488020521571&pg=webSearchList&_sug_=y&_sug_type_=&query=粤语";
 
 	/** BrainTwists **/
 	public static final String TXBrainTwistsApi = "http://api.tianapi.com/txapi/naowan/?key=18f7f9dbd7dfcd8ab45efdcfbc33826d";
@@ -121,8 +123,10 @@ public class Settings {
 	public static final String baidu_appid = "20151111000005006";	
 	public static final String baidu_secretkey = "91mGcsmdvX9HAaE8tXoI";	
 	public static final String client_id = "vCV6TTGRTI5QrckdYSKHQIhq";	
-	public static String from = "auto";	
-	public static String to = "auto";	
+	public static String yue = "yue";
+	public static String zh = "zh";
+	public static String from = "auto";
+	public static String to = "auto";
 	public static String q = "";	
 	public static String role = "vimary";	
 	public static final int offset = 100;

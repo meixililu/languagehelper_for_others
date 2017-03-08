@@ -64,17 +64,17 @@ public class InvestListActivity extends BaseActivity implements OnClickListener{
 		
 		@Override
 		protected Void doInBackground(Void... params) {
-			AVQuery<AVObject> query = new AVQuery<AVObject>(AVOUtil.InvestList.InvestList);
-			query.orderByAscending(AVOUtil.InvestList.createdAt);
-			try {
-				List<AVObject> avObject  = query.find();
-				if(avObject != null){
-					avObjects.clear();
-					avObjects.addAll(avObject);
-				}
-			} catch (AVException e) {
-				e.printStackTrace();
-			}
+//			AVQuery<AVObject> query = new AVQuery<AVObject>(AVOUtil.InvestList.InvestList);
+//			query.orderByAscending(AVOUtil.InvestList.createdAt);
+//			try {
+//				List<AVObject> avObject  = query.find();
+//				if(avObject != null){
+//					avObjects.clear();
+//					avObjects.addAll(avObject);
+//				}
+//			} catch (AVException e) {
+//				e.printStackTrace();
+//			}
 			return null;
 		}
 

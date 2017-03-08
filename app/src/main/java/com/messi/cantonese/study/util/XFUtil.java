@@ -17,7 +17,8 @@ public class XFUtil {
 	
 	public static final String SpeakerEn = "vimary";
 	public static final String SpeakerZh = "xiaoqi";//vixy xiaoqi  xiaoyan
-	
+	public static final String SpeakerHk = "xiaomei";
+
 	private static final String VoiceEngineZH = "zh_cn";
 	public static final String VoiceEngineEN = "en_us";
 	public static final String VoiceEngineMD = "mandarin";

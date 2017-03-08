@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.avos.avoscloud.AVAnalytics;
+import com.avos.avoscloud.AVObject;
 import com.iflytek.cloud.RecognizerListener;
 import com.iflytek.cloud.RecognizerResult;
 import com.iflytek.cloud.SpeechConstant;
@@ -31,6 +32,7 @@ import com.messi.cantonese.study.db.DataBaseUtil;
 import com.messi.cantonese.study.impl.PractisePlayUserPcmListener;
 import com.messi.cantonese.study.task.MyThread;
 import com.messi.cantonese.study.task.PublicTask;
+import com.messi.cantonese.study.util.AVOUtil;
 import com.messi.cantonese.study.util.AudioTrackUtil;
 import com.messi.cantonese.study.util.JsonParser;
 import com.messi.cantonese.study.util.KeyUtil;
@@ -38,7 +40,6 @@ import com.messi.cantonese.study.util.LogUtil;
 import com.messi.cantonese.study.util.SDCardUtil;
 import com.messi.cantonese.study.util.ScoreUtil;
 import com.messi.cantonese.study.util.Settings;
-import com.messi.cantonese.study.util.StringUtils;
 import com.messi.cantonese.study.util.ToastUtil;
 import com.messi.cantonese.study.util.XFUtil;
 import com.messi.cantonese.study.wxapi.WXEntryActivity;
@@ -48,11 +49,12 @@ import com.nineoldandroids.animation.ObjectAnimator;
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class PracticeActivity extends BaseActivity implements OnClickListener, PractisePlayUserPcmListener {
+public class PracticeForListActivity extends BaseActivity implements OnClickListener, PractisePlayUserPcmListener {
 
     @BindView(R.id.voice_btn_cover)
     FrameLayout voice_btn_cover;
@@ -84,7 +86,9 @@ public class PracticeActivity extends BaseActivity implements OnClickListener, P
     @BindView(R.id.record_animation_layout)
     LinearLayout record_animation_layout;
 
-    private record mBean;
+    private AVObject mBean;
+    private List<AVObject> beanList;
+    private int index;
     private MyOnClickListener mAnswerOnClickListener, mQuestionOnClickListener;
     private SpeechSynthesizer mSpeechSynthesizer;
     private SpeechRecognizer recognizer;
@@ -100,7 +104,6 @@ public class PracticeActivity extends BaseActivity implements OnClickListener, P
     private MyThread mMyThread;
     private Thread mThread;
     private String userPcmPath;
-    private boolean isNeedDelete;
     private AnimatorListener mAnimatorListenerReward = new AnimatorListener() {
         @Override
         public void onAnimationStart(Animator animation) {
@@ -131,7 +134,7 @@ public class PracticeActivity extends BaseActivity implements OnClickListener, P
             LogUtil.DefalutLog("onError:" + err.getErrorDescription());
             finishRecord();
             hideProgressbar();
-            ToastUtil.diaplayMesShort(PracticeActivity.this, err.getErrorDescription());
+            ToastUtil.diaplayMesShort(PracticeForListActivity.this, err.getErrorDescription());
         }
 
         @Override
@@ -150,7 +153,7 @@ public class PracticeActivity extends BaseActivity implements OnClickListener, P
                 LogUtil.DefalutLog("isLast-------onResult:" + sbResult.toString());
                 hideProgressbar();
                 finishRecord();
-                UserSpeakBean bean = ScoreUtil.score(PracticeActivity.this, sbResult.toString(), record_answer.getText().toString());
+                UserSpeakBean bean = ScoreUtil.score(PracticeForListActivity.this, sbResult.toString(), record_answer.getText().toString());
                 mUserSpeakBeanList.add(0, bean);
                 adapter.notifyDataSetChanged();
                 animationReward(bean.getScoreInt());
@@ -206,18 +209,18 @@ public class PracticeActivity extends BaseActivity implements OnClickListener, P
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.practice_activity);
+        setContentView(R.layout.practice_for_list_activity);
         ButterKnife.bind(this);
         initData();
         initView();
     }
 
     private void initData() {
-        mBean = (record) WXEntryActivity.dataMap.get(KeyUtil.DialogBeanKey);
-        isNeedDelete = getIntent().getBooleanExtra(KeyUtil.IsNeedDelete, false);
-        if(mBean.getBackup3().equals(Settings.yue)){
-            isCantonese = true;
-        }
+        beanList = (List<AVObject>) WXEntryActivity.dataMap.get(KeyUtil.DataMapKey);
+        index = getIntent().getIntExtra(KeyUtil.IndexKey, 0);
+        WXEntryActivity.dataMap.clear();
+        mBean = beanList.get(index);
+        isCantonese = true;
         mUserSpeakBeanList = new ArrayList<UserSpeakBean>();
         adapter = new RcPractiseListAdapter(this);
     }
@@ -236,17 +239,19 @@ public class PracticeActivity extends BaseActivity implements OnClickListener, P
                         .build());
         adapter.setItems(mUserSpeakBeanList);
         recent_used_lv.setAdapter(adapter);
-
-        record_question.setText(mBean.getChinese());
-        record_answer.setText(mBean.getEnglish());
-
+        setData();
         initSpeakLanguage();
         mAnswerOnClickListener = new MyOnClickListener(mBean, voice_play_answer, true);
         mQuestionOnClickListener = new MyOnClickListener(mBean, voice_play_question, false);
-
         record_question_cover.setOnClickListener(mQuestionOnClickListener);
         record_answer_cover.setOnClickListener(mAnswerOnClickListener);
         voice_btn_cover.setOnClickListener(this);
+
+    }
+
+    private void setData(){
+        record_question.setText(getContent(false));
+        record_answer.setText(getContent(true));
     }
 
     private void initSpeakLanguage() {
@@ -257,12 +262,25 @@ public class PracticeActivity extends BaseActivity implements OnClickListener, P
         }
     }
 
+    private String getContent(boolean isGetResult){
+        String[] item = mBean.getString(AVOUtil.EvaluationDetail.EDContent).split("#");
+        if (item.length > 1) {
+            if(isGetResult){
+                return item[0];
+            }else {
+                return item[1];
+            }
+        } else {
+            return "";
+        }
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.voice_btn_cover:
                 showIatDialog();
-                AVAnalytics.onEvent(PracticeActivity.this, "practice_pg_speak_btn");
+                AVAnalytics.onEvent(PracticeForListActivity.this, "practice_pg_speak_btn");
                 break;
             default:
                 break;
@@ -292,7 +310,6 @@ public class PracticeActivity extends BaseActivity implements OnClickListener, P
     private void exchangeContentAndResult() {
         if (!isExchange) {
             isExchange = true;
-
             mAnswerOnClickListener.setPlayResult(false);
             mQuestionOnClickListener.setPlayResult(true);
         } else {
@@ -402,7 +419,7 @@ public class PracticeActivity extends BaseActivity implements OnClickListener, P
     }
 
     private void playLocalPcm(final String path, final AnimationDrawable animationDrawable) {
-        PublicTask mPublicTask = new PublicTask(PracticeActivity.this);
+        PublicTask mPublicTask = new PublicTask(PracticeForListActivity.this);
         mPublicTask.setmPublicTaskListener(new PublicTask.PublicTaskListener() {
             @Override
             public void onPreExecute() {
@@ -440,7 +457,7 @@ public class PracticeActivity extends BaseActivity implements OnClickListener, P
         switch (item.getItemId()) {
             case R.id.action_swap:
                 exchangeContentAndResult();
-                AVAnalytics.onEvent(PracticeActivity.this, "practice_pg_exchange_btn");
+                AVAnalytics.onEvent(PracticeForListActivity.this, "practice_pg_exchange_btn");
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -458,30 +475,14 @@ public class PracticeActivity extends BaseActivity implements OnClickListener, P
         animationDrawable.selectDrawable(0);
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        if (mSpeechSynthesizer != null) {
-            mSpeechSynthesizer.destroy();
-            mSpeechSynthesizer = null;
-        }
-        if (recognizer != null) {
-            recognizer.destroy();
-            recognizer = null;
-        }
-        if (isNeedDelete) {
-            DataBaseUtil.getInstance().dele(mBean);
-        }
-    }
-
     public class MyOnClickListener implements OnClickListener {
 
-        private record mBean;
+        private AVObject mBean;
         private ImageButton voice_play;
         private AnimationDrawable animationDrawable;
         private boolean isPlayResult;
 
-        private MyOnClickListener(record bean, ImageButton voice_play, boolean isPlayResult) {
+        private MyOnClickListener(AVObject bean, ImageButton voice_play, boolean isPlayResult) {
             this.mBean = bean;
             this.voice_play = voice_play;
             this.animationDrawable = (AnimationDrawable) voice_play.getBackground();
@@ -496,40 +497,22 @@ public class PracticeActivity extends BaseActivity implements OnClickListener, P
         public void onClick(final View v) {
             resetVoicePlayButton();
             String path = SDCardUtil.getDownloadPath(SDCardUtil.sdPath);
-            if (TextUtils.isEmpty(mBean.getResultVoiceId()) || TextUtils.isEmpty(mBean.getQuestionVoiceId())) {
-                mBean.setQuestionVoiceId(System.currentTimeMillis() + "");
-                mBean.setResultVoiceId(System.currentTimeMillis() - 5 + "");
-            }
             String filepath = "";
             String speakContent = "";
             String speaker = "";
             if (isPlayResult) {
-                filepath = path + mBean.getResultVoiceId() + ".pcm";
-                mBean.setResultAudioPath(filepath);
-                speakContent = mBean.getEnglish();
+                filepath = path + mBean.getString(AVOUtil.EvaluationDetail.EDCode) + "_r.pcm";
+                speakContent = getContent(true);
                 speaker = XFUtil.SpeakerHk;
             } else {
-                filepath = path + mBean.getQuestionVoiceId() + ".pcm";
-                mBean.setQuestionAudioPath(filepath);
-                speakContent = mBean.getChinese();
+                filepath = path + mBean.getString(AVOUtil.EvaluationDetail.EDCode) + "_q.pcm";
+                speakContent = getContent(false);
                 speaker = XFUtil.SpeakerZh;
-            }
-            if (mBean.getSpeak_speed() != mSharedPreferences.getInt(getString(R.string.preference_key_tts_speed), 50)) {
-                String filep1 = path + mBean.getResultVoiceId() + ".pcm";
-                String filep2 = path + mBean.getQuestionVoiceId() + ".pcm";
-                AudioTrackUtil.deleteFile(filep1);
-                AudioTrackUtil.deleteFile(filep2);
-                mBean.setSpeak_speed(mSharedPreferences.getInt(getString(R.string.preference_key_tts_speed), 50));
             }
             mSpeechSynthesizer.setParameter(SpeechConstant.TTS_AUDIO_PATH, filepath);
             if (!AudioTrackUtil.isFileExists(filepath)) {
-                if (isPlayResult) {
-                    mBean.setBackup2(XFUtil.PlayResultOnline);
-                } else {
-                    mBean.setBackup2(XFUtil.PlayQueryOnline);
-                }
                 showProgressbar();
-                XFUtil.showSpeechSynthesizer(PracticeActivity.this, mSharedPreferences, mSpeechSynthesizer, speakContent,
+                XFUtil.showSpeechSynthesizer(PracticeForListActivity.this, mSharedPreferences, mSpeechSynthesizer, speakContent,
                         speaker,new SynthesizerListener() {
                             @Override
                             public void onSpeakResumed() {
@@ -557,9 +540,8 @@ public class PracticeActivity extends BaseActivity implements OnClickListener, P
                             public void onCompleted(SpeechError arg0) {
                                 LogUtil.DefalutLog("---onCompleted");
                                 if (arg0 != null) {
-                                    ToastUtil.diaplayMesShort(PracticeActivity.this, arg0.getErrorDescription());
+                                    ToastUtil.diaplayMesShort(PracticeForListActivity.this, arg0.getErrorDescription());
                                 }
-                                DataBaseUtil.getInstance().update(mBean);
                                 animationDrawable.setOneShot(true);
                                 animationDrawable.stop();
                                 animationDrawable.selectDrawable(0);
@@ -580,10 +562,23 @@ public class PracticeActivity extends BaseActivity implements OnClickListener, P
                 playLocalPcm(filepath, animationDrawable);
             }
             if (v.getId() == R.id.record_question_cover) {
-                AVAnalytics.onEvent(PracticeActivity.this, "practice_pg_play_question_btn", "口语练习页播放内容", 1);
+                AVAnalytics.onEvent(PracticeForListActivity.this, "practice_pg_play_question_btn", "口语练习页播放内容", 1);
             } else if (v.getId() == R.id.record_answer_cover) {
-                AVAnalytics.onEvent(PracticeActivity.this, "practice_pg_play_result_btn", "口语练习页播放结果", 1);
+                AVAnalytics.onEvent(PracticeForListActivity.this, "practice_pg_play_result_btn", "口语练习页播放结果", 1);
             }
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (mSpeechSynthesizer != null) {
+            mSpeechSynthesizer.destroy();
+            mSpeechSynthesizer = null;
+        }
+        if (recognizer != null) {
+            recognizer.destroy();
+            recognizer = null;
         }
     }
 }
